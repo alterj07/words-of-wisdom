@@ -1,0 +1,23 @@
+@app.route('/signup', methods=['POST'])
+def signup():
+    username = request.form['username']
+    password = request.form['password']
+    confirm = request.form['confirm']  # Fixed the key to 'confirm'
+
+    if password != confirm:
+        flash("Passwords do not match")
+        return redirect(url_for('signupPage'))
+
+    conn = get_database_connection()
+    existing_user = conn.execute('SELECT * FROM users WHERE username = ?', (username,)).fetchone()
+    
+    if existing_user:
+        flash("Username already exists")
+        return redirect(url_for('signupPage'))
+
+    hashed_password = generate_password_hash(password)  # Hash the password
+    conn.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, hashed_password))
+    conn.commit()
+    conn.close()
+    flash("User  created successfully! Please log in.")
+    return redirect(url_for('loginPage'))

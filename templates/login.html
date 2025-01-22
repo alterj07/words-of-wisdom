@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>RaspAPI</title>
+    <style>
+        /* #212121
+        #571936
+        #492435
+        #575757 
+        #d0d0d0*/
+        body {
+            background-color: 	#212121; 
+            font-family: Georgia, 'Times New Roman', sans-serif;
+        }
+
+        div {
+            background-color: #571936; 
+            width: 30%;
+            height: auto; 
+            border: 5px solid #380411; 
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #d0d0d0; 
+            margin: auto;
+            padding: 5%;
+            font-family: Georgia, 'Times New Roman', sans-serif;
+            text-align: center; 
+        }
+
+        input {
+            background-color: #ffffff; 
+            width: fit-content;
+            color: #212121; 
+            font-family: Georgia, 'Times New Roman', sans-serif;
+            margin-left: 12.25%;
+            padding: 5px;
+            border: 1px solid #492435;
+        }
+
+        .submit{
+            background-color: #492435; 
+            color: #ffffff;
+            font-family: Georgia, 'Times New Roman', sans-serif;
+            margin-left:41.5%;
+            margin-right: auto;
+            margin-top: 2%;
+            padding: 10px 20px; 
+            border: 1px solid black; 
+            cursor: pointer;
+        }
+
+        .submit:hover {
+            background-color: #2c151f; 
+            padding: 10px 20px; 
+            border: 1px solid black; 
+        }
+
+        .sign-upp{
+            color: #d0d0d0;
+            width:fit-content;
+            height:fit-content;
+            margin:auto;
+            margin-top:10px;
+        }
+
+        .signuplink{
+            color: #fffcfc;
+        }
+
+        .error{
+            background-color:red;
+            border-color:white;
+            color:#ffffff;
+            font-family:Georgia, 'Times New Roman', sans-serif;
+            width:fit-content;
+            height:fit-content;
+            margin:auto;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Login</h1>
+        <form action = "/login"
+              method = "POST">
+            <input type = "text"
+                   name = "username"
+                   placeholder = "Username"
+                   required>
+            <input type = "password"
+                   name = "password"
+                   placeholder = "Password"
+                   required>
+            <br>
+            <a href = "/generator"><button class = "submit" type = "submit">Log-In</button></a>
+        </form>
+        <p class = "sign-upp">Don't have a log-in? <a class = "signuplink" href = "/signupPage">Sign-Up Here!</a></p>
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+    <div class = "error">
+        <p class = "error">
+            {{messages[0][1]}}
+        </p>
+    </div>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>
