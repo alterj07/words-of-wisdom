@@ -90,3 +90,6 @@ ENV/
 
 # Database
 users.db
+
+# DS_Store
+.DS_Store
