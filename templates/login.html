@@ -16,8 +16,8 @@
 
         div {
             background-color: #571936; 
-            width: 30%;
-            height: auto; 
+            width: fit-content;
+            height: fit-content; 
             border: 5px solid #380411; 
             margin: auto;
             padding: 20px;
@@ -31,12 +31,25 @@
             text-align: center; 
         }
 
-        input {
+        .text {
             background-color: #ffffff; 
             width: fit-content;
+            height:fit-content;
             color: #212121; 
             font-family: Georgia, 'Times New Roman', sans-serif;
-            margin-left: 12.25%;
+            margin:auto;
+            margin-left: 5em;
+            padding: 5px;
+            border: 1px solid #492435;
+        }
+        .password {
+            background-color: #ffffff; 
+            width: fit-content;
+            height: fit-content;
+            color: #212121; 
+            font-family: Georgia, 'Times New Roman', sans-serif;
+            /* margin: auto; */
+            margin-right: 5em;
             padding: 5px;
             border: 1px solid #492435;
         }
@@ -45,18 +58,23 @@
             background-color: #492435; 
             color: #ffffff;
             font-family: Georgia, 'Times New Roman', sans-serif;
-            margin-left:41.5%;
-            margin-right: auto;
+            max-width:fit-content;
+            height:fit-content;
+            margin-left:13.5em;
+            margin-right:auto;
             margin-top: 2%;
+            margin-bottom:2%;
             padding: 10px 20px; 
             border: 1px solid black; 
             cursor: pointer;
+            transition:0.5s;
         }
 
         .submit:hover {
             background-color: #2c151f; 
             padding: 10px 20px; 
             border: 1px solid black; 
+            transition:0.5s;
         }
 
         .sign-upp{
@@ -92,13 +110,19 @@
             <input type = "text"
                    name = "username"
                    placeholder = "Username"
+                   class = "text"
                    required>
             <input type = "password"
                    name = "password"
                    placeholder = "Password"
+                   class = "password"
                    required>
             <br>
-            <a href = "/generator"><button class = "submit" type = "submit">Log-In</button></a>
+            <a href = "/generator">
+                <button class = "submit" type = "submit">
+                    Log-In
+                </button>
+            </a>
         </form>
         <p class = "sign-upp">Don't have a log-in? <a class = "signuplink" href = "/signupPage">Sign-Up Here!</a></p>
     </div>

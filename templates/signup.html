@@ -10,8 +10,8 @@
         }
         div{
             background-color: #571936;
-            width: 30%;
-            height: auto;
+            width: fit-content;
+            height: fit-content;
             border: 5px solid #380411;
             margin: auto;
             padding: 20px;
@@ -28,10 +28,12 @@
         input{
             background-color: #ffffff;
             width: fit-content;
+            height: fit-content;
             color: #212121;
             font-family: Georgia, 'Times New Roman', sans-serif;
-            margin-left: 35%;
-            margin-top:5px;
+            margin-left: 4em;
+            margin-top:5%;
+            margin-bottom:5%;
             padding: 5px;
             border: 1px solid #492435;
         }
@@ -40,8 +42,10 @@
             background-color: #492435;
             color: #ffffff;
             font-family: Georgia, 'Times New Roman', sans-serif;
-            margin-left: 27%;
-            margin-right: auto;
+            width:fit-content;
+            height:fit-content;
+            margin-left: 1em;
+            margin-right:auto;
             margin-top: 2%;
             padding: 10px 20px;
             border: 1px solid black;
@@ -79,7 +83,11 @@
                    placeholder = "Confirm Password"
                    required>
             <br>
-            <a href = "/generator"><button class = "submit" type = "submit">Join Our Motivational Journey!</button></a>
+            <a href = "/generator">
+                <button class = "submit" type = "submit">
+                    Join Our Motivational Journey!
+                </button>
+            </a>
         </form>
     </div>
     {% with messages = get_flashed_messages(with_categories=true) %}

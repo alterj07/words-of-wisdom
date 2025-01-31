@@ -1,9 +1,11 @@
 from flask import Flask, get_flashed_messages, request, jsonify, redirect, session, render_template, flash, url_for
 import sqlite3, random;
+import os, sys
+from time import sleep
 from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 
-app.secret_key = 'disneyrulez'
+app.secret_key = os.urandom(24)
 
 
 
@@ -11,6 +13,12 @@ def get_database_connection():
     conn = sqlite3.connect('quotes.db')
     # conn.row_factory = sqlite3.Row
     return conn
+
+def typewriter(words):
+    for char in words:
+        sleep(0.5)
+        print(char)
+    
 
 @app.route('/')
 def startPage():
@@ -23,6 +31,10 @@ def loginPage():
 @app.route('/signupPage')
 def signupPage():
     return render_template('signup.html')
+
+@app.route('/addPage')
+def addPage():
+    return render_template('addQuotes.html')
 
 @app.route('/login', methods=['POST'])
 def login ():
@@ -66,22 +78,27 @@ def signup():
 
 
 
-@app.route('/quotes', methods = ['GET', 'POST'])
+@app.route('/quotes', methods = ['GET'])
+def getQuotes():
+    conn = get_database_connection()
+    quotes = conn.execute('SELECT * FROM quotes').fetchall()
+    conn.close()
+    ranQuote = random.choice(quotes)
+    return render_template('main.html', quote = ranQuote[2], author = ranQuote[1])
+
+@app.route('/addQuotes', methods = ['POST'])
 def addQuote():
-    if request.method == 'POST':
-        quote = request.form['quote']
-        author = request.form['author']
-        conn = get_database_connection()
-        conn.execute('INSERT INTO quotes (quote, author) VALUES (?, ?)', (quote, author))
-        conn.commit()
-        conn.close()
-        return redirect(url_for('/generator'))
-    elif request.method == 'GET':
-        conn = get_database_connection()
-        quotes = conn.execute('SELECT * FROM quotes').fetchall()
-        conn.close()
-        ranQuote = random.choice(quotes)
-        return render_template('main.html', quote = ranQuote[2], author = ranQuote[1])
+    quote = request.form['quote']
+    author = request.form['author']
+    if not quote or not author:
+        flash("Empty Quote or Author")
+        return redirect(url_for('addQuotes'))
+    conn = get_database_connection()
+    conn.execute('INSERT INTO quotes (quote, author) VALUES (?, ?)', (quote, author))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('generator'))
+
 
 @app.route('/generator')
 def generator():

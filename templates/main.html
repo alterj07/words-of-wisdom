@@ -26,43 +26,127 @@
             background-color:#26425A;
             color: #ffffff;
             font-family: Georgia, 'Times New Roman', sans-serif;
-            margin-left:46%;
+            display:block;
+            margin:auto;
             margin-top:10px;
             text-align:center;
             padding: 10px 20px;
             border: 1px solid black;
             cursor: pointer;
+            transition:1s;
         }
 
         .generate:hover{
             background-color:#2c151f;
             padding: 10px 20px;
             border: 1px solid black;
+            transition:1s;
+        }
+
+        .generate:active{
+            background-color:black;
+        }
+
+        .clear{
+            background-color:#F4A460;
+            color:#ffffff;
+            font-family:Georgia, 'Times New Roman', sans-serif;
+            display:block;
+            margin:auto;
+            margin-top:10px;
+            text-align:center;
+            padding:10px 20px;
+            border: 1px solid black;
+            transition:1s;
+        }
+
+        .clear:hover{
+            background-color:#B8860B;
+            transition:1s;
+            cursor:pointer;
+        }
+
+        .clear:active{
+            background-color:#6B8E23;
+        }
+
+        .addQuote{
+            background-color:#26425A;
+            color: #ffffff;
+            font-family: Georgia, 'Times New Roman', sans-serif;
+            display:block;
+            margin:auto;
+            margin-top:10px;
+            text-align:center;
+            padding: 10px 20px;
+            border: 1px solid black;
+            cursor: pointer;
+            transition:1s;
+        }
+
+        .addQuote:hover{
+            background-color:#2c151f;
+            padding: 10px 20px;
+            border: 1px solid black;
+            transition:1s;
+        }
+
+        .addQuote:active{
+            background-color:black;
         }
 
         .container{
-            width: 70%; 
-            height: 100%;
+            width: 70%; /*70%*/
+            height: 100%; /*100% */
+            display:block;
             border: 2px solid white;
             background-color: black; 
             margin:auto;
             margin-top:50px;
+            overflow:hidden;
+            white-space:nowrap;
         }
 
         .quote{
-            width:fit-content;
-            height:fit-content;
+            display:inline-block;
+            width:0;
+            max-width:fit-content;
+            height:100%;
             margin:auto;
             margin-top:2.5em;
             font-size:2em;
             font-family: Georgia, 'Times New Roman', sans-serif;
+            white-space: nowrap;
+            overflow:hidden;
+            animation:typing 7s steps(100, end) forwards, blinking 1s step-end infinite;
+        }
+
+        @keyframes typing{
+            from{width: 0}
+            to {width:100%}
+        }
+
+        @keyframes blinking{
+            from, to{
+                border-right:2px solid transparent;
+            }
+            50%{
+                border-right:2px solid white;
+            }
         }
 
         .author{
-            width:fit-content;
+            display:inline-block;
+            width:0;
+            max-width:fit-content;
             height:fit-content;
             margin:auto;
+            margin-right:1em;
+            margin-top:1em;
             font-size:2em;
+            white-space:nowrap;
+            overflow:hidden;
+            animation:typing 5s steps(100, end) forwards, blinking 1s step-end infinite;
         }
     </style>
 </head>
@@ -75,20 +159,47 @@
             method = "GET">
             <button class = "generate">Generate Quote</button>
         </form>
+        <button class = "clear"
+        onclick = "clearInputField()">
+        Clear
+        </button>
+        <form action = "/addPage"
+            method = "GET">
+            <button class = "addQuote">Add To The Motivational List</button>
+        </form>
+        
     </div>
     <div class = "container">
-        <p class = "quote"> 
+        <p class = "quote"
+            id = "quote"> 
             {{quote}}
         </p>
-        <p class = "author">
+        <br>
+        <p class = "author"
+            id = "author">
             - {{author}}
         </p>
     </div>
+    <div>
+        <form action = "/loginPage"
+        method = "GET">
+            <button class = "addQuote">Back to Login</button>
+        </form>
+    </div>
+    <script>
+        function clearInputField() {
+            const quote = document.getElementById('quote');
+            const author = document.getElementById('author');
+            if(quote)
+            {
+                quote.textContent = '';
+            }
+            if(author)
+            {
+                author.textContent = '';
+            }
+        }
+    </script>
 </body>
 </html>
 
-<!-- Ideas:
-        - In the empty box, create a 'cursor thing' that
-        usually appears when you're typing in general
-        - Let the motivational quote come out typewriter style
-        - Cool button for generating new quote -->
